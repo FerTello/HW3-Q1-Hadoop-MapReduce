@@ -23,8 +23,6 @@ public class Q1 {
     private final static IntWritable one = new IntWritable(1);
     private IntWritable src = new IntWritable();
     private IntWritable weight = new IntWritable();
-    //private Integer i = new Integer(0);
-    //private IntWritable num = new IntWritable(Integer.parseInt(word));
 
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
@@ -38,36 +36,6 @@ public class Q1 {
 	weight.set(new Integer (numbers[2]));
 	context.write(src, weight);
       }
-
-	//System.out.println("*****************************");
-/*
-	while (itr.hasMoreTokens()) {
-
-	i += 1;
-	if ( i == 1 ){
-	  word.set(itr.nextToken()); 
-
-	} else if ( i == 3){
-	  word.set(itr.nextToken()); 
-	}
-
-        context.write(word, one);
-	System.out.println(word);
-	System.out.println(i);
-      }
-
-	for (i : 3){
-	  System.out.println("val:");
-	  System.out.println(val);
-	}
-
-	System.out.println("word:");
-	System.out.println(word);
-	System.out.println("key:");
-	System.out.println(key);
-	System.out.println("value:");
-	System.out.println(value);
-*/
     }
   }
 
@@ -92,15 +60,12 @@ public class Q1 {
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf, "Q1");
 
-    /* TODO: Needs to be implemented */
-
     job.setJarByClass(Q1.class);
     job.setMapperClass(TokenizerMapper.class);
     job.setCombinerClass(IntSumReducer.class);
     job.setReducerClass(IntSumReducer.class);
     job.setOutputKeyClass(IntWritable.class);
     job.setOutputValueClass(IntWritable.class);
-
 
     FileInputFormat.addInputPath(job, new Path(args[0]));
     FileOutputFormat.setOutputPath(job, new Path(args[1]));
